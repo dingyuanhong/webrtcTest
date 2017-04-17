@@ -1,0 +1,114 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Source">
+      <UniqueIdentifier>{d756156a-2900-420b-862f-6cc70d07bf10}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="ReadMe.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="targetver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MediaStreamApply.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="VideoRender.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTest.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="conductor.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="peer_connection_client.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="class_api.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="flagdefs.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LogObserver.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="defaults.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="CodeTransport.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PeerConnectionTranform.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="FormWindow.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopBackTransport.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="DummySetSessionDescriptionObserver.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PeerConntionManager.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+    <ClInclude Include="PeerConnectionChannel.h">
+      <Filter>Source</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="MediaStreamApply.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="VideoRender.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="ModuleTest.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="conductor.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="peer_connection_client.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="stdafx.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="dllmain.cpp">
+      <Filter>Header Files</Filter>
+    </ClCompile>
+    <ClCompile Include="defaults.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopBackTransport.cc">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PeerConntionManager.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="PeerConnectionChannel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
