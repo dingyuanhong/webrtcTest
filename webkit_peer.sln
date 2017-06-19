@@ -15,6 +15,10 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "MediaPeer", "MediaPeer\Medi
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioProcess", "AudioProcess\AudioProcess.vcxproj", "{FC2631F1-56FF-4879-A924-7A1779121989}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "noise_suppression", "noise_suppression\noise_suppression.vcxproj", "{59522102-3BA8-447E-949A-BA94B8E9F0E3}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "AudioProcess2", "AudioProcess2\AudioProcess2.vcxproj", "{ABA4A96D-F3A6-4313-B40E-962143A42A2C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -71,6 +75,22 @@ Global
 		{FC2631F1-56FF-4879-A924-7A1779121989}.Release|x64.Build.0 = Release|x64
 		{FC2631F1-56FF-4879-A924-7A1779121989}.Release|x86.ActiveCfg = Release|Win32
 		{FC2631F1-56FF-4879-A924-7A1779121989}.Release|x86.Build.0 = Release|Win32
+		{59522102-3BA8-447E-949A-BA94B8E9F0E3}.Debug|x64.ActiveCfg = Debug|x64
+		{59522102-3BA8-447E-949A-BA94B8E9F0E3}.Debug|x64.Build.0 = Debug|x64
+		{59522102-3BA8-447E-949A-BA94B8E9F0E3}.Debug|x86.ActiveCfg = Debug|Win32
+		{59522102-3BA8-447E-949A-BA94B8E9F0E3}.Debug|x86.Build.0 = Debug|Win32
+		{59522102-3BA8-447E-949A-BA94B8E9F0E3}.Release|x64.ActiveCfg = Release|x64
+		{59522102-3BA8-447E-949A-BA94B8E9F0E3}.Release|x64.Build.0 = Release|x64
+		{59522102-3BA8-447E-949A-BA94B8E9F0E3}.Release|x86.ActiveCfg = Release|Win32
+		{59522102-3BA8-447E-949A-BA94B8E9F0E3}.Release|x86.Build.0 = Release|Win32
+		{ABA4A96D-F3A6-4313-B40E-962143A42A2C}.Debug|x64.ActiveCfg = Debug|x64
+		{ABA4A96D-F3A6-4313-B40E-962143A42A2C}.Debug|x64.Build.0 = Debug|x64
+		{ABA4A96D-F3A6-4313-B40E-962143A42A2C}.Debug|x86.ActiveCfg = Debug|Win32
+		{ABA4A96D-F3A6-4313-B40E-962143A42A2C}.Debug|x86.Build.0 = Debug|Win32
+		{ABA4A96D-F3A6-4313-B40E-962143A42A2C}.Release|x64.ActiveCfg = Release|x64
+		{ABA4A96D-F3A6-4313-B40E-962143A42A2C}.Release|x64.Build.0 = Release|x64
+		{ABA4A96D-F3A6-4313-B40E-962143A42A2C}.Release|x86.ActiveCfg = Release|Win32
+		{ABA4A96D-F3A6-4313-B40E-962143A42A2C}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
