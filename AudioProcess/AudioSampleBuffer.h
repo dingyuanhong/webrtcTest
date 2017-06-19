@@ -83,7 +83,7 @@ public:
 
 					for (size_t j = 0; j < channels; j++)
 					{
-						memcpy(((char*)audioSamples + j), (char*)audioSamplesAvailable_, perChannelBytes);
+						memcpy(((char*)audioSamples + j*perChannelBytes), (char*)audioSamplesAvailable_, perChannelBytes);
 					}
 					audioSamplesAvailable_ = (char*)audioSamplesAvailable_ + nBytesPerSample_;
 					audioSamples = (char*)audioSamples + nBytesPerSample;

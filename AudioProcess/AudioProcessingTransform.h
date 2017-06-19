@@ -27,6 +27,8 @@
 #include "DevicesInfo.h"
 #include "AudioSampleBuffer.h"
 
+#define MAX_RECORDING_SIZE 2000
+
 class AudioProcessingTransform
 	: public webrtc::AudioTransport
 {
@@ -55,8 +57,8 @@ public:
 		apm->Initialize();//保留所有用户设置的情况下重新初始化apm的内部状态，用于开始处理一个新的音频流。第一个流创建之后不一定需要调用此方法。
 
 		apm->noise_suppression()->set_level(webrtc::NoiseSuppression::kVeryHigh);
+
 		initNoise_ = false;
-		firstSound_ = true;
 		soundCount_ = 0;
 	}
 
@@ -139,7 +141,7 @@ public:
 		AudioSampleBuffer * buff = NULL;
 		bool bProcess = true;
 		bool bProcessAPM = true;
-		bool bProcessSpeex = false;
+		bool bProcessSpeex = true;
 		if (bProcess == true) {
 			GenerateAudioFrame((const int16_t*)audioSamples, nSamples, nChannels, samplesPerSec);
 
@@ -164,100 +166,57 @@ public:
 				int err = apm->ProcessStream(&_audioFrame);
 				if (err != 0)
 				{
+					printf("ProcessStream Error:%d \n", err);
 					return 0;
 				}
 			}
 
-			bool isMute = true;
-			for (size_t i = 0; i < nSamples*nBytesPerSample; i++)
-			{
-				if (((char*)audioSamples)[i] == 0) {
-					isMute = false;
-					break;
-				}
-			}
-#define MAX_RECORDING_SIZE 2000
-			firstSound_ = false;
-#ifdef _DEBUG
-			if (soundCount_ > MAX_RECORDING_SIZE)
-			{
-				if (noiseWriter != NULL)
-				{
-					delete noiseWriter;
-					noiseWriter = NULL;
-				}
-				if (noNoiseWriter != NULL) {
-					delete noNoiseWriter;
-					noNoiseWriter = NULL;
-				}
-			}
-#endif
-			if (!firstSound_) {
-				if (isMute) {
-					buff = new AudioSampleBuffer(nSamples, nBytesPerSample, nChannels, samplesPerSec);
-				}
-				else {
-					buff = new AudioSampleBuffer(_audioFrame.data_, nSamples, nBytesPerSample, nChannels, samplesPerSec);
-				}
-#ifdef _DEBUG
-				if (soundCount_ <= MAX_RECORDING_SIZE) {
-					if (noiseWriter == NULL)
-					{
-						std::string name = "./noiseFile.wav";
-						noiseWriter = new webrtc::WavWriter(name, samplesPerSec, nChannels);
-					}
-					if (noNoiseWriter == NULL) {
-						std::string name = "./noNoiseFile.wav";
-						noNoiseWriter = new webrtc::WavWriter(name, samplesPerSec, nChannels);
-					}
-					noiseWriter->WriteSamples((int16_t*)audioSamples, nSamples);
-					noNoiseWriter->WriteSamples((int16_t*)buff->audioSamples_, nSamples);
-				}
-#endif
+			bool isMute = false;
+
+			if (isMute) {
+				buff = new AudioSampleBuffer(nSamples, nBytesPerSample, nChannels, samplesPerSec);
 			}
 			else {
-#ifdef _DEBUG
-				if (noiseWriter == NULL)
-				{
-					std::string name = "./noiseFile.wav";
-					noiseWriter = new webrtc::WavWriter(name, samplesPerSec, nChannels);
-				}
-				if (noNoiseWriter == NULL) {
-					std::string name = "./noNoiseFile.wav";
-					noNoiseWriter = new webrtc::WavWriter(name, samplesPerSec, nChannels);
-				}
-				noiseWriter->WriteSamples((const float*)audioSamples, nSamples);
-				noNoiseWriter->WriteSamples(_audioFrame.data_, nSamples);
-#endif
+				buff = new AudioSampleBuffer(_audioFrame.data_, nSamples, nBytesPerSample, nChannels, samplesPerSec);
 			}
-			soundCount_++;
 		}
 		else
 		{
-			if (soundCount_ > MAX_RECORDING_SIZE)
-			{
-#ifdef _DEBUG		
-				if (noiseWriter != NULL)
-				{
-					delete noiseWriter;
-					noiseWriter = NULL;
-				}
-#endif
-				return 0;
-			}
+			buff = new AudioSampleBuffer(audioSamples, nSamples, nBytesPerSample, nChannels, samplesPerSec);
+		}
+
 #ifdef _DEBUG
+		if (soundCount_ <= MAX_RECORDING_SIZE) {
 			if (noiseWriter == NULL)
 			{
 				std::string name = "./noiseFile.wav";
 				noiseWriter = new webrtc::WavWriter(name, samplesPerSec, nChannels);
 			}
-			noiseWriter->WriteSamples((const float*)audioSamples, nSamples);
-#endif
-			soundCount_++;
-
-			buff = new AudioSampleBuffer(audioSamples, nSamples, nBytesPerSample, nChannels, samplesPerSec);
+			if (noNoiseWriter == NULL) {
+				std::string name = "./noNoiseFile.wav";
+				noNoiseWriter = new webrtc::WavWriter(name, samplesPerSec, nChannels);
+			}
+			noiseWriter->WriteSamples((int16_t*)audioSamples, nSamples);
+			noNoiseWriter->WriteSamples((int16_t*)buff->audioSamples_, nSamples);
 		}
-
+		else {
+			if (noiseWriter != NULL)
+			{
+				delete noiseWriter;
+				noiseWriter = NULL;
+			}
+			if (noNoiseWriter != NULL) {
+				delete noNoiseWriter;
+				noNoiseWriter = NULL;
+			}
+		}
+		soundCount_++;
+		if (soundCount_ <= MAX_RECORDING_SIZE)
+		{
+			//return 0;
+		}
+#endif
+		
 		Buffer.push_back(buff);
 
 		return 0;
@@ -309,7 +268,7 @@ private:
 	webrtc::PushResampler<int16_t> resampler_;
 	std::list<AudioSampleBuffer*> Buffer;
 	AudioDenoise doenoise;
-	bool firstSound_;
+
 	int soundCount_;
 	webrtc::WavWriter *noiseWriter;
 	webrtc::WavWriter *noNoiseWriter;
