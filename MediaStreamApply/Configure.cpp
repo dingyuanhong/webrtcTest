@@ -14,6 +14,7 @@
 #include "webrtc\extern\VCMQmResolutionFactory.h"
 #include "webrtc\modules\video_coding\qm_select.h"
 #endif
+
 rtc::Win32Thread * g_w32_thread = NULL;
 
 void InitThread()

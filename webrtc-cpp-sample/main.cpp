@@ -30,6 +30,21 @@
 #include "picojson.h"
 #include "webrtclib.h"
 
+#define USE_EXTERN
+
+#ifdef USE_EXTERN
+#include "webrtc\extern\VCMQmResolutionFactory.h"
+#include "webrtc\modules\video_coding\qm_select.h"
+
+namespace webrtc
+{
+	VCMQmResolution * VCMQmResolutionFactory::Create()
+	{
+		return new VCMQmResolution();
+	}
+}
+#endif
+
 class Connection {
 public:
 	rtc::scoped_refptr<webrtc::PeerConnectionInterface> peer_connection;
