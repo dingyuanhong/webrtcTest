@@ -225,6 +225,36 @@ void CLASS_API TestVideoCapture()
 #include "webrtc\modules\audio_processing\include\audio_processing.h"
 #include "CodeTransport.h"
 
+void printDevices(webrtc::AudioDeviceModule* device)
+{
+	if (device == NULL) return;
+
+	int16_t playerCount = device->PlayoutDevices();
+	printf("播放设备数:%d\n", playerCount);
+	for (int16_t i = 0; i < playerCount; i++)
+	{
+		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
+		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
+
+		device->PlayoutDeviceName(i, name, guid);
+		std::string utf8 = name;
+		std::string strName = UTF82ASCII(utf8);
+		printf("播放设备：%d %s , %s\n", i, strName.c_str(), guid);
+	}
+
+	int16_t recordCount = device->RecordingDevices();
+	printf("采集设备数:%d\n", recordCount);
+	for (int16_t i = 0; i < recordCount; i++)
+	{
+		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
+		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
+		device->RecordingDeviceName(i, name, guid);
+		std::string utf8 = name;
+		std::string strName = UTF82ASCII(utf8);
+		printf("采集设备：%d %s , %s\n", i, strName.c_str(), guid);
+	}
+}
+
 void CLASS_API TestAudioDevice()
 {
 	CoInitialize(NULL);
@@ -242,30 +272,7 @@ void CLASS_API TestAudioDevice()
 
 	audioDevice->Init();
 
-	int16_t playerCount = audioDevice->PlayoutDevices();
-	printf("播放设备数:%d\n",playerCount);
-	for (int16_t i = 0; i < playerCount; i++)
-	{
-		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
-		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
-
-		audioDevice->PlayoutDeviceName(i,name,guid);
-		std::string utf8 = name;
-		std::string strName = UTF82ASCII(utf8);
-		printf("播放设备：%d %s , %s\n",i, strName.c_str(),guid);
-	}
-
-	int16_t recordCount = audioDevice->RecordingDevices();
-	printf("采集设备数:%d\n", recordCount);
-	for (int16_t i = 0; i < recordCount; i++)
-	{
-		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
-		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
-		audioDevice->RecordingDeviceName(i, name, guid);
-		std::string utf8 = name;
-		std::string strName = UTF82ASCII(utf8);
-		printf("采集设备：%d %s , %s\n", i, strName.c_str(), guid);
-	}
+	printDevices(audioDevice.get());
 
 	w32_thread.Run();
 
@@ -288,7 +295,7 @@ public:
 		{
 			printf("malloc false.\n");
 		}
-
+		memset(audioSamples_,0, nSamples*nBytesPerSample);
 		nSamplesAvailable_ = nSamples_ = nSamples;
 		nBytesPerSample_ = nBytesPerSample;
 		nChannels_ = nChannels;
@@ -604,7 +611,7 @@ public:
 		int64_t* elapsed_time_ms,
 		int64_t* ntp_time_ms)
 	{
-		//printf("Render:%d %d %d %d\n", nBytesPerSample, nChannels, samplesPerSec, nSamples);
+		printf("need:BytesPerSample:%d Channels:%d samplesPerSec:%d Samples:%d\n", nBytesPerSample, nChannels, samplesPerSec, nSamples);
 
 		if (Buffer.size() == 0) {
 			memset(audioSamples, 0, nBytesPerSample * nSamples);
@@ -662,30 +669,7 @@ void CLASS_API TestAudioCapture()
 	audioDevice->InitMicrophone();
 	audioDevice->InitSpeaker();
 
-	int16_t playerCount = audioDevice->PlayoutDevices();
-	printf("播放设备数:%d\n", playerCount);
-	for (int16_t i = 0; i < playerCount; i++)
-	{
-		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
-		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
-
-		audioDevice->PlayoutDeviceName(i, name, guid);
-		std::string utf8 = name;
-		std::string strName = UTF82ASCII(utf8);
-		printf("播放设备：%d %s , %s\n", i, strName.c_str(), guid);
-	}
-
-	int16_t recordCount = audioDevice->RecordingDevices();
-	printf("采集设备数:%d\n", recordCount);
-	for (int16_t i = 0; i < recordCount; i++)
-	{
-		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
-		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
-		audioDevice->RecordingDeviceName(i, name, guid);
-		std::string utf8 = name;
-		std::string strName = UTF82ASCII(utf8);
-		printf("采集设备：%d %s , %s\n", i, strName.c_str(), guid);
-	}
+	printDevices(audioDevice.get());
 	
 	audioDevice->SetRecordingDevice(0);
 	
@@ -751,6 +735,7 @@ public:
 		const size_t packet_length) override
 	{
 		network_->ReceivedRTCPPacket(captureChannel_, incoming_rtcp_packet, packet_length);
+		network_->ReceivedRTCPPacket(playoutChannel_, incoming_rtcp_packet, packet_length);
 	}
 private:
 	webrtc::VoENetwork* network_;
@@ -787,30 +772,7 @@ void CLASS_API TestAudioLoopCapture()
 
 	audioDevice->Init();
 	
-	int16_t playerCount = audioDevice->PlayoutDevices();
-	printf("播放设备数:%d\n", playerCount);
-	for (int16_t i = 0; i < playerCount; i++)
-	{
-		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
-		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
-
-		audioDevice->PlayoutDeviceName(i, name, guid);
-		std::string utf8 = name;
-		std::string strName = UTF82ASCII(utf8);
-		printf("播放设备：%d %s , %s\n", i, strName.c_str(), guid);
-	}
-
-	int16_t recordCount = audioDevice->RecordingDevices();
-	printf("采集设备数:%d\n", recordCount);
-	for (int16_t i = 0; i < recordCount; i++)
-	{
-		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
-		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
-		audioDevice->RecordingDeviceName(i, name, guid);
-		std::string utf8 = name;
-		std::string strName = UTF82ASCII(utf8);
-		printf("采集设备：%d %s , %s\n", i, strName.c_str(), guid);
-	}
+	printDevices(audioDevice.get());
 
 	base->Init(audioDevice);
 
@@ -823,11 +785,11 @@ void CLASS_API TestAudioLoopCapture()
 	audioDevice->InitPlayout();
 
 
-	audioProcessing->SetNsStatus(true, webrtc::kNsConference);
-	audioProcessing->SetAgcStatus(true, webrtc::kAgcUnchanged);
+	audioProcessing->SetNsStatus(true, webrtc::kNsHighSuppression);
+	audioProcessing->SetAgcStatus(true, webrtc::kAgcFixedDigital);
 	audioProcessing->EnableDriftCompensation(true);
-	audioProcessing->SetEcStatus(true, webrtc::kEcUnchanged);
-	//audioProcessing->SetAecmMode(webrtc::kAecmQuietEarpieceOrHeadset, true);
+	audioProcessing->SetEcStatus(true, webrtc::kEcAec);
+	audioProcessing->SetAecmMode(webrtc::kAecmQuietEarpieceOrHeadset, true);
 	audioProcessing->EnableHighPassFilter(true);
 	audioProcessing->SetEcMetricsStatus(true);
 	audioProcessing->SetTypingDetectionStatus(true);
@@ -835,6 +797,8 @@ void CLASS_API TestAudioLoopCapture()
 
 	int capture = base->CreateChannel();
 	int playout = base->CreateChannel();
+
+	audioProcessing->SetRxNsStatus(playout,true, webrtc::kNsModerateSuppression);
 
 	MTransport transport(network, playout, capture);
 	network->RegisterExternalTransport(capture, transport);
@@ -886,30 +850,7 @@ void CLASS_API TestAudioLoopBack()
 
 	audioDevice->Init();
 
-	int16_t playerCount = audioDevice->PlayoutDevices();
-	printf("播放设备数:%d\n", playerCount);
-	for (int16_t i = 0; i < playerCount; i++)
-	{
-		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
-		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
-
-		audioDevice->PlayoutDeviceName(i, name, guid);
-		std::string utf8 = name;
-		std::string strName = UTF82ASCII(utf8);
-		printf("播放设备：%d %s , %s\n", i, strName.c_str(), guid);
-	}
-
-	int16_t recordCount = audioDevice->RecordingDevices();
-	printf("采集设备数:%d\n", recordCount);
-	for (int16_t i = 0; i < recordCount; i++)
-	{
-		char name[webrtc::kAdmMaxDeviceNameSize] = { 0 };
-		char guid[webrtc::kAdmMaxGuidSize] = { 0 };
-		audioDevice->RecordingDeviceName(i, name, guid);
-		std::string utf8 = name;
-		std::string strName = UTF82ASCII(utf8);
-		printf("采集设备：%d %s , %s\n", i, strName.c_str(), guid);
-	}
+	printDevices(audioDevice.get());
 
 	base->Init(audioDevice);
 
