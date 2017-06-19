@@ -7,8 +7,8 @@
  *  in the file PATENTS.  All contributing project authors may
  *  be found in the AUTHORS file in the root of the source tree.
  */
+#define NOMINMAX
 
-#include "stdafx.h"
 #include <algorithm>
 #include <memory>
 #include <vector>

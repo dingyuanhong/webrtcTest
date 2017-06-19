@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "ModuleTest.h"
 
 #include "webrtc\modules\video_capture\video_capture_factory.h"
@@ -223,7 +222,7 @@ void CLASS_API TestVideoCapture()
 #include "webrtc\voice_engine\voice_engine_impl.h"
 #include "webrtc\modules\audio_device\audio_device_impl.h"
 #include "webrtc\modules\audio_processing\include\audio_processing.h"
-#include "CodeTransport.h"
+#include "MediaStreamApply\CodeTransport.h"
 
 void printDevices(webrtc::AudioDeviceModule* device)
 {
@@ -892,32 +891,5 @@ void CLASS_API TestAudioLoopBack()
 
 	webrtc::VoiceEngine::Delete(engine);
 
-	rtc::CleanupSSL();
-}
-
-rtc::Win32Thread * g_w32_thread = NULL;
-
-void InitThread()
-{
-	rtc::EnsureWinsockInit();
-	rtc::ThreadManager::Instance();
-	if (g_w32_thread == NULL) {
-		g_w32_thread = new rtc::Win32Thread();
-		g_w32_thread->Start();
-	}
-	rtc::ThreadManager::Instance()->SetCurrentThread(g_w32_thread);
-	//rtc::ThreadManager::Instance()->CurrentThread();
-	rtc::InitializeSSL();
-}
-
-void UninitThread()
-{
-	rtc::ThreadManager::Instance()->SetCurrentThread(NULL);
-	if (g_w32_thread != NULL) {
-		g_w32_thread->Quit();
-		g_w32_thread->Stop();
-		delete g_w32_thread;
-		g_w32_thread = NULL;
-	}
 	rtc::CleanupSSL();
 }

@@ -10,6 +10,8 @@
 #ifndef WEBRTC_MODULES_RTP_RTCP_TEST_TESTAPI_TEST_API_H_
 #define WEBRTC_MODULES_RTP_RTCP_TEST_TESTAPI_TEST_API_H_
 
+#define NOMINMAX
+
 #include "webrtc/base/scoped_ptr.h"
 #include "webrtc/common_types.h"
 #include "webrtc/transport.h"

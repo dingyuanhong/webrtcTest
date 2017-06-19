@@ -154,14 +154,13 @@
     <ClInclude Include="class_api.h" />
     <ClInclude Include="CodeTransport.h" />
     <ClInclude Include="conductor.h" />
+    <ClInclude Include="Configure.h" />
     <ClInclude Include="defaults.h" />
     <ClInclude Include="DummySetSessionDescriptionObserver.h" />
     <ClInclude Include="flagdefs.h" />
     <ClInclude Include="FormWindow.h" />
     <ClInclude Include="LogObserver.h" />
-    <ClInclude Include="LoopBackTransport.h" />
     <ClInclude Include="MediaStreamApply.h" />
-    <ClInclude Include="ModuleTest.h" />
     <ClInclude Include="PeerConnectionChannel.h" />
     <ClInclude Include="PeerConnectionTranform.h" />
     <ClInclude Include="PeerConntionManager.h" />
@@ -172,6 +171,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="conductor.cc" />
+    <ClCompile Include="Configure.cpp" />
     <ClCompile Include="defaults.cc" />
     <ClCompile Include="dllmain.cpp">
       <CompileAsManaged Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</CompileAsManaged>
@@ -187,9 +187,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
-    <ClCompile Include="LoopBackTransport.cc" />
     <ClCompile Include="MediaStreamApply.cpp" />
-    <ClCompile Include="ModuleTest.cpp" />
     <ClCompile Include="PeerConnectionChannel.cpp" />
     <ClCompile Include="PeerConntionManager.cpp" />
     <ClCompile Include="peer_connection_client.cc" />

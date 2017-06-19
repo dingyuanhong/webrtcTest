@@ -33,9 +33,6 @@
     <ClInclude Include="VideoRender.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleTest.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="conductor.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -63,9 +60,6 @@
     <ClInclude Include="FormWindow.h">
       <Filter>Source</Filter>
     </ClInclude>
-    <ClInclude Include="LoopBackTransport.h">
-      <Filter>Source</Filter>
-    </ClInclude>
     <ClInclude Include="DummySetSessionDescriptionObserver.h">
       <Filter>Source</Filter>
     </ClInclude>
@@ -75,15 +69,15 @@
     <ClInclude Include="PeerConnectionChannel.h">
       <Filter>Source</Filter>
     </ClInclude>
+    <ClInclude Include="Configure.h">
+      <Filter>Source</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MediaStreamApply.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="VideoRender.cpp">
-      <Filter>Source</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleTest.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="conductor.cc">
@@ -101,13 +95,13 @@
     <ClCompile Include="defaults.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="LoopBackTransport.cc">
-      <Filter>Source</Filter>
-    </ClCompile>
     <ClCompile Include="PeerConntionManager.cpp">
       <Filter>Source</Filter>
     </ClCompile>
     <ClCompile Include="PeerConnectionChannel.cpp">
+      <Filter>Source</Filter>
+    </ClCompile>
+    <ClCompile Include="Configure.cpp">
       <Filter>Source</Filter>
     </ClCompile>
   </ItemGroup>

@@ -1,5 +1,5 @@
 #define LIB_COMMENT
-#ifndef LIB_COMMENT
+#ifdef LIB_COMMENT
 #pragma comment(lib,"boringssl.lib")
 #pragma comment(lib,"boringssl_asm.lib")
 #pragma comment(lib,"libjpeg.lib")
@@ -105,10 +105,8 @@
 
 #endif
 
-#include "MediaStreamApply/ModuleTest.h"
+#include "ModuleTest.h"
 #include "WinLogObserver.h"
-
-#pragma comment(lib,"MediaStreamApply.lib")
 
 int main() 
 {

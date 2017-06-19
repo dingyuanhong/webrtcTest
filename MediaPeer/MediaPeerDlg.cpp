@@ -17,7 +17,7 @@
 #include "..\MediaStreamApply\CodeTransport.h"
 #include "..\MediaStreamApply\peer_connection_client.h"
 #include "..\MediaStreamApply\conductor.h"
-#include "..\MediaStreamApply\ModuleTest.h"
+#include "..\MediaStreamApply\Configure.h"
 
 #ifdef _DEBUG
 #define new DEBUG_NEW

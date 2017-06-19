@@ -18,10 +18,22 @@
     <ClCompile Include="peer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="ModuleTest.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LoopBackTransport.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="WinLogObserver.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ModuleTest.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LoopBackTransport.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
