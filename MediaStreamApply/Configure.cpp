@@ -9,6 +9,11 @@
 #include "webrtc/base/signalthread.h"
 #include "webrtc/base/sigslot.h"
 
+#define USE_EXTERN
+#ifdef USE_EXTERN
+#include "webrtc\extern\VCMQmResolutionFactory.h"
+#include "webrtc\modules\video_coding\qm_select.h"
+#endif
 rtc::Win32Thread * g_w32_thread = NULL;
 
 void InitThread()
@@ -35,3 +40,13 @@ void UninitThread()
 	}
 	rtc::CleanupSSL();
 }
+
+#ifdef USE_EXTERN
+namespace webrtc
+{
+	VCMQmResolution * VCMQmResolutionFactory::Create()
+	{
+		return new VCMQmResolution();
+	}
+}
+#endif
