@@ -9,7 +9,9 @@
 
 int main()
 {
-	TestAudioCapture();
+	//TestAudioCapture();
+	TestAudioPlay();
+
     return 0;
 }
 

@@ -151,6 +151,7 @@
   <ItemGroup>
     <ClInclude Include="AudioDenoise.h" />
     <ClInclude Include="AudioLookback.h" />
+    <ClInclude Include="AudioPlayTransform.h" />
     <ClInclude Include="AudioProcessingTransform.h" />
     <ClInclude Include="AudioSampleBuffer.h" />
     <ClInclude Include="DevicesInfo.h" />

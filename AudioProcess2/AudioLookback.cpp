@@ -24,6 +24,7 @@
 #include "DevicesInfo.h"
 #include "AudioSampleBuffer.h"
 #include "AudioProcessingTransform.h"
+#include "AudioPlayTransform.h"
 
 #include <Objbase.h>
 
@@ -61,6 +62,46 @@ void CLASS_API TestAudioCapture()
 
 	int32_t ret = audioDevice->StartRecording();
 	ret = audioDevice->StartPlayout();
+
+	w32_thread.Run();
+
+	audioDevice->Terminate();
+
+	rtc::CleanupSSL();
+}
+
+void TestAudioPlay()
+{
+	CoInitialize(NULL);
+	rtc::EnsureWinsockInit();
+	rtc::Win32Thread w32_thread;
+	rtc::ThreadManager::Instance()->SetCurrentThread(&w32_thread);
+
+	rtc::InitializeSSL();
+
+	rtc::scoped_refptr<webrtc::AudioDeviceModule> audioDevice = webrtc::AudioDeviceModuleImpl::Create(0);
+
+	if (!audioDevice.get()) {
+		return;
+	}
+
+	audioDevice->Init();
+	audioDevice->Initialized();
+	audioDevice->InitMicrophone();
+	audioDevice->InitSpeaker();
+
+	printDevices(audioDevice.get());
+
+	AudioPlayTransform transform;
+	
+	audioDevice->RegisterAudioCallback(&transform);
+
+	audioDevice->SetPlayoutDevice(0);
+	audioDevice->InitPlayout();
+
+	int32_t ret = audioDevice->StartPlayout();
+
+	transform.Open("./014956_923_noiseFile.wav");
 
 	w32_thread.Run();
 
