@@ -83,7 +83,7 @@ public:
 		size_t num_samples = reader_->sample_rate()*THREAD_DELAY_TIME /1000;
 		int16_t* samples = (int16_t*)malloc(sizeof(int16_t)*num_samples);
 		size_t ret = reader_->ReadSamples(num_samples,samples);
-		if (ret > 0) {
+		if (ret >= num_samples) {
 			uint32_t newMicLevel = 0;
 
 			RecordedDataIsAvailable(samples, ret,
